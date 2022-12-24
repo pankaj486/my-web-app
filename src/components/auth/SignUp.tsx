@@ -1,6 +1,7 @@
 import { useReducer } from "react";
 import { Link } from "react-router-dom";
-import "./auth.css"
+import ReducerHandler from "../../StateService/ReducerHandler";
+import "./auth.css";
 
 const SignUpForm = () => {
   const initialState = {
@@ -10,16 +11,8 @@ const SignUpForm = () => {
     password: "",
   };
 
-  function formReducer(state: any, action: any) {
-    switch (action.type) {
-      case "UPDATE_VALUE":
-        return { ...state, [action.name]: action.value };
-      default:
-        return state;
-    }
-  }
-
-  const [state, dispatch] = useReducer(formReducer, initialState);
+  const { onSignUpReducer } = ReducerHandler();
+  const [state, dispatch] = useReducer(onSignUpReducer, initialState);
 
   const handleChange = (e: any) => {
     dispatch({
@@ -31,8 +24,6 @@ const SignUpForm = () => {
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    // perform form validation and submission here
-    // dispatch({ type: 'SUBMIT_FORM' });
     localStorage.setItem("_state", JSON.stringify(state));
   };
 

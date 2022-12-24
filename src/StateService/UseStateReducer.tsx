@@ -2,10 +2,10 @@ import { useReducer } from "react";
 
 const UseStateReducer = (initialState:any, handleReducer:any) => {
 
-    const [items, dispatch]  = useReducer(initialState, handleReducer);
+    const [state, dispatch]  = useReducer(initialState, handleReducer);
 
     return {
-        items,
+        state,
         dispatch
     }
 }

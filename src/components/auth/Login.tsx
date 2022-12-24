@@ -1,7 +1,10 @@
 import { useReducer } from "react";
 import { useNavigate } from "react-router-dom";
+import ReducerHandler from "../../StateService/ReducerHandler";
 
 const LoginForm = () => {
+  const { onLoginReducer } = ReducerHandler();
+
   const initialState = {
     email: "",
     password: "",
@@ -9,16 +12,7 @@ const LoginForm = () => {
 
   const navigate = useNavigate();
 
-  const formReducer = (state: any, action: any) => {
-    switch (action.type) {
-      case "AUTHENTICATE":
-        return { ...state, [action.name]: action.value };
-      default:
-        return state;
-    }
-  };
-
-  const [state, dispatch] = useReducer(formReducer, initialState);
+  const [state, dispatch] = useReducer(onLoginReducer, initialState);
   const authUser = JSON.parse(localStorage.getItem("_state") as any);
 
   const handleChange = (e: any) => {
