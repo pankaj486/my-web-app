@@ -1,7 +1,8 @@
-import { useReducer } from "react";
-import { Link } from "react-router-dom";
-import ReducerHandler from "../../StateService/ReducerHandler";
 import "./auth.css";
+import { Link } from "react-router-dom";
+import { useReducer, Fragment } from "react";
+import InputField from "../FormInput/FormInput";
+import ReducerHandler from "../../StateService/ReducerHandler";
 
 const SignUpForm = () => {
   const initialState = {
@@ -11,6 +12,7 @@ const SignUpForm = () => {
     password: "",
   };
 
+  const inputItems = ["firstName", "lastName", "email", "password"]
   const { onSignUpReducer } = ReducerHandler();
   const [state, dispatch] = useReducer(onSignUpReducer, initialState);
 
@@ -33,54 +35,22 @@ const SignUpForm = () => {
         <form onSubmit={handleSubmit}>
           <h3>Sign Up</h3>
 
-          <div className="mb-3">
-            <label>First name</label>
-            <input
-              type="text"
-              className="form-control"
-              placeholder="First name"
-              name="firstName"
-              value={state.firstName}
-              onChange={handleChange}
-            />
-          </div>
-
-          <div className="mb-3">
-            <label>Last name</label>
-            <input
-              type="text"
-              className="form-control"
-              placeholder="Last name"
-              name="lastName"
-              value={state.lastName}
-              onChange={handleChange}
-            />
-          </div>
-
-          <div className="mb-3">
-            <label>Email address</label>
-            <input
-              type="email"
-              className="form-control"
-              placeholder="Enter email"
-              name="email"
-              value={state.email}
-              onChange={handleChange}
-            />
-          </div>
-
-          <div className="mb-3">
-            <label>Password</label>
-            <input
-              type="password"
-              className="form-control"
-              placeholder="Enter password"
-              name="password"
-              value={state.password}
-              onChange={handleChange}
-            />
-          </div>
-
+          {inputItems.map((item:string, index:number) => {
+            let capitalizedName = item[0].toUpperCase() + item.slice(1);
+            return (
+              <Fragment key={index}>
+                <InputField
+                  label={capitalizedName} 
+                  type={item}
+                  className="form-control"
+                  placeholder={capitalizedName}
+                  name={item}
+                  value={item === state[item] ? item : state[item]}
+                  onChange={handleChange}
+                />
+              </Fragment>
+            );
+          })}
           <div className="d-grid">
             <button type="submit" className="btn btn-primary">
               Sign Up
@@ -89,7 +59,6 @@ const SignUpForm = () => {
           <p className="forgot-password text-right">
             Already registered
             <Link to="/login">Login?</Link>
-            {/* <a href="/sign-in">sign in?</a> */}
           </p>
         </form>
       </div>

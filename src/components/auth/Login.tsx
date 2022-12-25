@@ -1,5 +1,9 @@
-import { useReducer } from "react";
+import styled from "styled-components";
+import { useReducer, Fragment } from "react";
 import { useNavigate } from "react-router-dom";
+import InputField from "../FormInput/FormInput";
+import Button from "../ButtonComponent/ButtonField";
+import Toastify from "../ToastifyAlerts/ToastifyAlertMessage";
 import ReducerHandler from "../../StateService/ReducerHandler";
 
 const LoginForm = () => {
@@ -31,43 +35,42 @@ const LoginForm = () => {
     ) {
       return navigate("/dashboard");
     } else {
-      throw new Error("Please enter a valid email and password");
+      // TODO TOASTIFY:NOT WORKING CHECK AND MAKE SURE THIS IS WORKING
+      <Toastify 
+        message="Please enter your email and password"
+        // options={{position: "bottom-right"}}
+        type="error"
+      />
     }
   };
+
 
   return (
     <div className="auth-wrapper">
       <div className="auth-inner">
         <form onSubmit={handleSubmit}>
           <h3>Log In</h3>
-          <div className="mb-3">
-            <label>Email address</label>
-            <input
-              type="email"
-              name="email"
-              value={state.email}
-              onChange={handleChange}
-              className="form-control"
-              placeholder="Enter email"
-            />
-          </div>
-
-          <div className="mb-3">
-            <label>Password</label>
-            <input
-              type="password"
-              name="password"
-              value={state.password}
-              onChange={handleChange}
-              className="form-control"
-              placeholder="Enter password"
-            />
-          </div>
-          <div className="d-grid">
-            <button type="submit" className="btn btn-primary">
+          {["email", "password"].map((item:string, index:number) => {
+            let capitalizedName = item[0].toUpperCase() + item.slice(1);
+            return (
+              <Fragment key={index}>
+                <InputField 
+                  label={capitalizedName}
+                  type={item}
+                  name={item}
+                  value={item === 'email' ? state.email : state.password}
+                  onChange={handleChange}
+                  className="form-control"
+                  placeholder={`Enter: ${item}`}
+                />
+              </Fragment>
+            );
+          })}
+          <StyledDiv>
+            <Button type="submit" className="btn btn-primary">
               Submit
-            </button>
-          </div>
+            </Button>
+          </StyledDiv>
         </form>
       </div>
     </div>
@@ -75,3 +78,7 @@ const LoginForm = () => {
 };
 
 export default LoginForm;
+
+const StyledDiv = styled.div`
+  display: grid;
+`;
