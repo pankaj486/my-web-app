@@ -3,7 +3,6 @@ import { useReducer, Fragment } from "react";
 import { useNavigate } from "react-router-dom";
 import InputField from "../FormInput/FormInput";
 import Button from "../ButtonComponent/ButtonField";
-import Toastify from "../ToastifyAlerts/ToastifyAlertMessage";
 import ReducerHandler from "../../StateService/ReducerHandler";
 
 const LoginForm = () => {
@@ -35,12 +34,7 @@ const LoginForm = () => {
     ) {
       return navigate("/dashboard");
     } else {
-      // TODO TOASTIFY:NOT WORKING CHECK AND MAKE SURE THIS IS WORKING
-      <Toastify 
-        message="Please enter your email and password"
-        // options={{position: "bottom-right"}}
-        type="error"
-      />
+      throw new Error("The email and password entered are incorrect");
     }
   };
 
