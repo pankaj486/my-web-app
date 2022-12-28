@@ -4,9 +4,11 @@ import { useNavigate } from "react-router-dom";
 import InputField from "../FormInput/FormInput";
 import Button from "../ButtonComponent/ButtonField";
 import ReducerHandler from "../../StateService/ReducerHandler";
+import ToastifyMessage from "../ToastifyAlerts/ToastifyMessage";
 
 const LoginForm = () => {
   const { onLoginReducer } = ReducerHandler();
+  const {showToast} = ToastifyMessage();
 
   const initialState = {
     email: "",
@@ -34,7 +36,8 @@ const LoginForm = () => {
     ) {
       return navigate("/dashboard");
     } else {
-      throw new Error("The email and password entered are incorrect");
+      const message = "Please enter a valid email and password"
+      showToast(message, "error")
     }
   };
 
