@@ -5,6 +5,7 @@ import {Container, Nav, Navbar} from 'react-bootstrap';
 const StyledLink = styled(Link)`
     text-decoration: none;
     color: white;
+    padding-left: 15px;
     &:hover {
         color: #D3D3D3;
     }
@@ -21,7 +22,7 @@ function NavbarContainer() {
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto">
+          <Nav className="pl-3">
             <StyledLink to="/dashboard">
                 Dashboard
             </StyledLink>
