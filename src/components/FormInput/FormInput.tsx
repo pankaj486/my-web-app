@@ -10,7 +10,7 @@ type InputProps = {
   placeholder?: string;
 };
 
-const InputField: React.FC<InputProps> = (
+const InputField: React.FC<InputProps> = React.memo((
     { 
         label, 
         name, 
@@ -33,6 +33,6 @@ const InputField: React.FC<InputProps> = (
         placeholder={placeholder} 
     />
   </div>
-);
+));
 
 export default InputField;

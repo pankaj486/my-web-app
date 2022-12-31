@@ -1,7 +1,9 @@
 import "./auth.css";
+import React from "react";
 import { Link } from "react-router-dom";
-import { useReducer, Fragment } from "react";
 import InputField from "../FormInput/FormInput";
+import Button from "../ButtonComponent/ButtonField";
+import { useReducer, Fragment, useCallback } from "react";
 import ReducerHandler from "../../StateService/ReducerHandler";
 
 const SignUpForm = () => {
@@ -12,17 +14,21 @@ const SignUpForm = () => {
     password: "",
   };
 
+  const MemoizedLink = React.memo(Link);
   const inputItems = ["firstName", "lastName", "email", "password"]
   const { onSignUpReducer } = ReducerHandler();
   const [state, dispatch] = useReducer(onSignUpReducer, initialState);
 
-  const handleChange = (e: any) => {
-    dispatch({
-      type: "UPDATE_VALUE",
-      name: e.target.name,
-      value: e.target.value,
-    });
-  };
+  const handleChange = useCallback(
+    (e:any) => {
+      dispatch({
+        type: "UPDATE_VALUE",
+        name: e.target.name,
+        value: e.target.value,
+      });
+    },
+    [dispatch]
+  );
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
@@ -52,13 +58,13 @@ const SignUpForm = () => {
             );
           })}
           <div className="d-grid">
-            <button type="submit" className="btn btn-primary">
+            <Button type="submit" className="btn btn-primary">
               Sign Up
-            </button>
+            </Button>
           </div>
           <p className="forgot-password text-right">
             Already registered
-            <Link to="/login">Login?</Link>
+            <MemoizedLink to="/login">Login?</MemoizedLink>
           </p>
         </form>
       </div>

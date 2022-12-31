@@ -11,6 +11,8 @@ const StyledLink = styled(Link)`
     }
 `;
 
+const authUser = JSON.parse(localStorage.getItem("_state") as any);
+
 function NavbarContainer() {
   return (
     <Navbar bg="dark" variant="dark" expand="lg">
@@ -36,7 +38,7 @@ function NavbarContainer() {
         </Navbar.Collapse>
         <Navbar.Collapse className="justify-content-end">
           <Navbar.Text>
-            Signed in as: <a href="#login">Pankaj Mehra</a>
+            Signed in as: <a href="#login">{authUser.firstName}</a>
           </Navbar.Text>
         </Navbar.Collapse>
       </Container>

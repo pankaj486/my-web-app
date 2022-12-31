@@ -1,10 +1,14 @@
 import styled from "styled-components";
-import { useReducer, Fragment } from "react";
 import { useNavigate } from "react-router-dom";
 import InputField from "../FormInput/FormInput";
 import Button from "../ButtonComponent/ButtonField";
 import ReducerHandler from "../../StateService/ReducerHandler";
+import React,{ useReducer, Fragment, useCallback } from "react";
 import ToastifyMessage from "../ToastifyAlerts/ToastifyMessage";
+
+const StyledDiv = styled.div`
+  display: grid;
+`;
 
 const LoginForm = () => {
   const { onLoginReducer } = ReducerHandler();
@@ -16,19 +20,19 @@ const LoginForm = () => {
   };
 
   const navigate = useNavigate();
-
+  const MemoizedStyledDiv = React.memo(StyledDiv);
   const [state, dispatch] = useReducer(onLoginReducer, initialState);
-  const authUser = JSON.parse(localStorage.getItem("_state") as any);
+  const authUser = JSON.parse(localStorage.getItem("_state") as any)
 
-  const handleChange = (e: any) => {
+  const handleChange = useCallback((e:any) => {
     dispatch({
-      type: "AUTHENTICATE",
-      name: e.target.name,
-      value: e.target.value,
-    });
-  };
+        type: "AUTHENTICATE",
+        name: e.target.name,
+        value: e.target.value,
+      });
+  },[dispatch])
 
-  const handleSubmit = (event: any) => {
+  const handleSubmit = useCallback((event:any) => {
     event.preventDefault();
     if (
       state.email === authUser.email &&
@@ -39,7 +43,7 @@ const LoginForm = () => {
       const message = "Please enter a valid email and password"
       showToast(message, "error")
     }
-  };
+  },[authUser, navigate, showToast, state]);
 
 
   return (
@@ -63,11 +67,11 @@ const LoginForm = () => {
               </Fragment>
             );
           })}
-          <StyledDiv>
+          <MemoizedStyledDiv>
             <Button type="submit" className="btn btn-primary">
               Submit
             </Button>
-          </StyledDiv>
+          </MemoizedStyledDiv>
         </form>
       </div>
     </div>
@@ -75,7 +79,3 @@ const LoginForm = () => {
 };
 
 export default LoginForm;
-
-const StyledDiv = styled.div`
-  display: grid;
-`;
