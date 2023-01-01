@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import Dashboard from "../Dashboard/Dashboard";
 import { Container, Nav, Navbar, Row, Col } from "react-bootstrap";
 
 const StyledLink = styled(Link)`
@@ -36,11 +37,20 @@ function NavbarContainer() {
       </Container>
     </Navbar>
     <Container fluid>
-      <Row>
-        <Col xs={2}><div>Pankaj</div></Col>
-        <Col xs={10}><div>kishan</div></Col>
-      </Row>
-    </Container>
+    <Row>
+      <Col xs={2}>
+        <Nav defaultActiveKey="/home" className="flex-column">
+          <Nav.Link href="/home">Home</Nav.Link>
+          <Nav.Link href="/report">Reports</Nav.Link>
+          <Nav.Link href="/settings">Settings</Nav.Link>
+          <Nav.Link href="/logout">Logout</Nav.Link>
+        </Nav>
+      </Col>
+      <Col xs={10}>
+        <Dashboard />
+      </Col>
+    </Row>
+  </Container>
   </>  
   );
 }
