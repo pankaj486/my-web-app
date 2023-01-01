@@ -30,14 +30,20 @@ const LoginForm = () => {
         name: e.target.name,
         value: e.target.value,
       });
-  },[dispatch])
+  },[dispatch]);;
 
   const handleSubmit = useCallback((event:any) => {
     event.preventDefault();
+    if(state.email === "" || state.password === "") {
+      const message = "field not be empty"
+      showToast(message, "error")
+    }
     if (
       state.email === authUser.email &&
       state.password === authUser.password
     ) {
+      const message = "Logged In"
+      showToast(message, "success")
       return navigate("/dashboard");
     } else {
       const message = "Please enter a valid email and password"
@@ -45,6 +51,7 @@ const LoginForm = () => {
     }
   },[authUser, navigate, showToast, state]);
 
+  
 
   return (
     <div className="auth-wrapper">
