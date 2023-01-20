@@ -7,11 +7,14 @@ const StyledLink = styled(Link)`
     color: white;
     padding-left: 15px;
     &:hover {
-        color: #D3D3D3;
+      color: #D3D3D3;
     }
 `;
 
 function NavbarContainer() {
+
+  const currentActiveUser:any = JSON.parse(localStorage.getItem("_state") as any)
+
   return (
     <Navbar bg="dark" variant="dark" expand="lg">
       <Container fluid>
@@ -36,7 +39,7 @@ function NavbarContainer() {
         </Navbar.Collapse>
         <Navbar.Collapse className="justify-content-end">
           <Navbar.Text>
-            Signed in as: <a href="#login">Pankaj Mehra</a>
+            Signed in as: <a href="#login">{currentActiveUser?.firstName}</a>
           </Navbar.Text>
         </Navbar.Collapse>
       </Container>

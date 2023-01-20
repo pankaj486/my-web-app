@@ -14,14 +14,12 @@ const MainAppDiv = styled.div`
 function App() {
   return (
     <BrowserRouter>
-      <MainAppDiv>
+    <NavbarContainer />
         <Routes>
-          <Route path="/" element={<NavbarContainer />} />
           <Route path="/dashboard" element={<DashboardPage />} />
           <Route path="/login" element={<LoginForm />} />
           <Route path="/signup" element={<SignUpForm />} />
         </Routes>
-      </MainAppDiv>
       <ToastContainer />
     </BrowserRouter>
   );
