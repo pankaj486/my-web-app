@@ -36,3 +36,9 @@
     line-height: 1;
     padding-bottom: 20px;
   }
+
+  @media only screen and (max-width: 768) {
+  .auth-inner{
+    width:100%;
+  }
+}

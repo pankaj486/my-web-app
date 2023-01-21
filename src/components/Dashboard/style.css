@@ -1,0 +1,13 @@
+.background_color{
+    background:#4723D9;
+    color:#fff;
+    padding: 20px;
+}
+#nav-bar a{
+    width:100%;
+    display:block;
+    color:#fff;
+    text-decoration: none;
+}
+
+/*-----Latest Code Sidebar-----*/
